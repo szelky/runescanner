@@ -8,5 +8,5 @@ dependencies = [
     "imutils>=0.5.4",
     "numpy>=2.4.4",
     "opencv-python>=4.13.0.92",
-    "scikit-learn>=1.8.0",
+    "scikit-image>=0.26.0",
 ]
