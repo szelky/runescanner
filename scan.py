@@ -16,10 +16,16 @@ ratio = image.shape[0] / 500.0
 orig = image.copy()
 image = imutils.resize(image, height= 500)
 
+image_padded = cv2.copyMakeBorder(image, 5, 5, 5, 5, cv2.BORDER_CONSTANT, value=[0, 0, 0])
+
+
 # grayscale the image and blue it then find edges
 gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 gray = cv2.GaussianBlur(gray, (5, 5), 0)
+# gray = cv2.bilateralFilter(gray, 9, 75, 75)
 edged = cv2.Canny(gray, 75, 200)
+kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (5, 5))
+edged = cv2.morphologyEx(edged, cv2.MORPH_CLOSE, kernel)
 
 cv2.imshow("Original", image)
 cv2.imshow("Edged", edged)
@@ -54,11 +60,11 @@ warped = four_point_transform(orig, screenCnt.reshape(4, 2) * ratio)
 # To make it black and white #
 # ----------------------------------------------------------------------
 warped_bnw = cv2.cvtColor(warped, cv2.COLOR_BGR2GRAY)
-threshold = threshold_local(warped, 11, offset=10, method="gaussian")
-warped_bnw = (warped > threshold).astype("uint8") * 255
+threshold = threshold_local(warped_bnw, 11, offset=10, method="gaussian")
+warped_bnw = (warped_bnw > threshold).astype("uint8") * 255
 
 cv2.imshow("Original", imutils.resize(orig, height=650))
 cv2.imshow("Scanned", imutils.resize(warped, height=650))
-cv2.imshow("Black and White Scan", imutils.resize(warped_bnw, height=650))
+# cv2.imshow("Black and White Scan", imutils.resize(warped_bnw, height=650))
 cv2.waitKey(0)
 cv2.destroyAllWindows()
