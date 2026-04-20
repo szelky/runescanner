@@ -49,9 +49,13 @@ cv2.destroyAllWindows()
 # IMAGE TRANSFORM
 # now that we find contour we can transform it to bird eyes view
 warped = four_point_transform(orig, screenCnt.reshape(4, 2) * ratio)
-warped = cv2.cvtColor(warped, cv2.COLOR_BGR2GRAY)
-threshold = threshold_local(warped, 11, offset=10, method="gaussian")
-warped = (warped > threshold).astype("uint8") * 255
+
+# ----------------------------------------------------------------------
+# To make it black and white #
+# ----------------------------------------------------------------------
+# warped = cv2.cvtColor(warped, cv2.COLOR_BGR2GRAY)
+# threshold = threshold_local(warped, 11, offset=10, method="gaussian")
+# warped = (warped > threshold).astype("uint8") * 255
 
 cv2.imshow("Original", imutils.resize(orig, height=650))
 cv2.imshow("Scanned", imutils.resize(warped, height=650))
