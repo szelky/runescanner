@@ -3,7 +3,11 @@ from skimage.filters import threshold_local
 import numpy as np
 import cv2
 import imutils
-import args
+import argparse
+
+ap = argparse.ArgumentParser()
+ap.add_argument("-i", "--image", required=True, help="path to the image file")
+args = vars(ap.parse_args())
 
 # EDGE DETECTION
 # load image copy to orig and compute the ratio

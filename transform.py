@@ -14,7 +14,7 @@ def order_points(pts):
     rect[0] = pts[np.argmin(s)] # top-left will have min sums
     rect[2] = pts[np.argmax(s)] # bottom-right will have max sums
 
-    d = pts.diff(axis = 1)
+    d = np.diff(pts, axis = 1)
     rect[1] = pts[np.argmin(d)] # top-right will have min diff
     rect[3] = pts[np.argmax(d)] # bottom-left will have max diff
 
