@@ -16,13 +16,12 @@ ratio = image.shape[0] / 500.0
 orig = image.copy()
 image = imutils.resize(image, height= 500)
 
-image_padded = cv2.copyMakeBorder(image, 5, 5, 5, 5, cv2.BORDER_CONSTANT, value=[0, 0, 0])
+# image_padded = cv2.copyMakeBorder(image, 5, 5, 5, 5, cv2.BORDER_CONSTANT, value=[0, 0, 0])
 
 
 # grayscale the image and blue it then find edges
 gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 gray = cv2.GaussianBlur(gray, (5, 5), 0)
-# gray = cv2.bilateralFilter(gray, 9, 75, 75)
 edged = cv2.Canny(gray, 75, 200)
 kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (5, 5))
 edged = cv2.morphologyEx(edged, cv2.MORPH_CLOSE, kernel)
