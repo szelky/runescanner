@@ -53,11 +53,12 @@ warped = four_point_transform(orig, screenCnt.reshape(4, 2) * ratio)
 # ----------------------------------------------------------------------
 # To make it black and white #
 # ----------------------------------------------------------------------
-# warped = cv2.cvtColor(warped, cv2.COLOR_BGR2GRAY)
-# threshold = threshold_local(warped, 11, offset=10, method="gaussian")
-# warped = (warped > threshold).astype("uint8") * 255
+warped_bnw = cv2.cvtColor(warped, cv2.COLOR_BGR2GRAY)
+threshold = threshold_local(warped, 11, offset=10, method="gaussian")
+warped_bnw = (warped > threshold).astype("uint8") * 255
 
 cv2.imshow("Original", imutils.resize(orig, height=650))
 cv2.imshow("Scanned", imutils.resize(warped, height=650))
+cv2.imshow("Black and White Scan", imutils.resize(warped_bnw, height=650))
 cv2.waitKey(0)
 cv2.destroyAllWindows()
